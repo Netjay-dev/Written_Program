@@ -1,0 +1,39 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        const short n = nums1.size() + nums2.size();
+        if(n==0){
+            return 0;
+        }else if(n==1){
+            if(nums1.size()==0){
+                return nums2[0];
+            }
+            if(nums2.size()==0){
+                return nums1[0];
+            }
+        }
+
+        short i=0, j = 0;
+        float s = 0, t =0;
+
+        while(i+j <= n/2){
+            if(j==nums2.size() || (i<nums1.size() && nums1[i] < nums2[j])){
+                t = (float)nums1[i];
+                if(i+j == (n/2)-1){
+                    s=t;
+                }
+                i++;
+            }else{
+                t = (float)nums2[j];
+                if(i+j == (n/2)-1){
+                    s=t;
+                }
+                j++;
+            }
+        }
+        if(n%2==0){
+            return (double)(s+t)/2;
+        }
+        return (double)t;
+    }
+};
